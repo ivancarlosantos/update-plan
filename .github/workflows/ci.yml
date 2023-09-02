@@ -1,0 +1,86 @@
+name: CI
+
+on:
+  push:
+    branches: [master]
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        java: [ '11', '17', '19' ]
+
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up JDK ${{matrix.Java}}
+        uses: actions/setup-java@v3
+        with:
+          java-version: ${{matrix.Java}}
+          distribution: 'temurin'
+          cache: 'maven'
+
+      - name: Build with Maven
+        run: mvn -B package -X -DskipTests=true --file pom.xml
+
+  version_verify:
+    needs: [build]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: list Directories
+        run: ls -lha
+
+      - name: Show Java Version
+        run: java --version
+
+      - name: Show Maven Version
+        run: mvn --version
+
+      - name: Show Git Version
+        run: git --version
+
+      - name: Show Docker Version
+        run: docker --version
+
+      - name: Build with Maven
+        run: mvn -B package -X -DskipTests --file pom.xml
+
+  QA-Test:
+    needs: [build, version_verify]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test Application
+        run: |
+          mvn clean verify -DskipTests
+          ls -lha
+          docker run -d --name=nginx -p 80:80 nginx:latest
+
+  tests:
+    needs: [QA-Test]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Test Application
+        run: mvn clean verify -DskipTests=true
+
+  deploy:
+    needs: [tests]
+    runs-on: ubuntu-latest
+    env:
+      repo: ${{ secrets.DOCKER_REPO }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set Up JDK
+      - uses: actions/setup-java@v3
+        with:
+          java-version: 17
+      - name: Login to Docker Hub
+        run: docker login -u ${{ secrets.DOCKER_USER }} -p ${{ secrets.DOCKER_PASSWORD }}
+      - name: Build Docker image
+        run: docker build -t devmenorzera/token .
+      - name: Publish Docker image
+        run: docker push devmenorzera/token
