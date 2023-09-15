@@ -1,2 +1,5 @@
+spring:
+  profiles:
+    active: release
 server:
   port: 8086

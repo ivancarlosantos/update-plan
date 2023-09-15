@@ -16,4 +16,4 @@ COPY --from=build /app/target/*.jar token.jar
 
 EXPOSE 8086
 
-ENTRYPOINT ["java", "-jar", "token.jar"]
+ENTRYPOINT ["java", "-jar", "token.jar", "-Dspring.profiles.active=release"]
