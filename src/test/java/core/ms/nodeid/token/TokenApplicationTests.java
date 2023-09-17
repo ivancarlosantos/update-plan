@@ -15,7 +15,7 @@ class TokenApplicationTests {
 
 	@Test
 	void test() {
-			UUID id = UUID.randomUUID();
+			Long id = 1L;
 			String token = "meuToken";
 			LocalDateTime timestamp = LocalDateTime.now();
 

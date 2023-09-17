@@ -8,7 +8,7 @@ RUN mvn -f /app/pom.xml clean package -Dmaven.test.skip
 
 FROM openjdk:17
 
-LABEL key="core.ics"
+LABEL key="core.ms"
 
 WORKDIR /usr/src/app
 
@@ -16,4 +16,4 @@ COPY --from=build /app/target/*.jar token.jar
 
 EXPOSE 8086
 
-ENTRYPOINT ["java", "-jar", "token.jar", "-Dspring.profiles.active=release"]
+ENTRYPOINT ["java", "-jar", "token.jar"]
