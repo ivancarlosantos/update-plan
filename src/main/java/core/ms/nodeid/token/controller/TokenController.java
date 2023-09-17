@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @RestController
 @RequestMapping(path = "/api")
 public class TokenController {
@@ -19,5 +21,10 @@ public class TokenController {
     @GetMapping(path = "/token")
     public ResponseEntity<Token> generateToken(){
         return ResponseEntity.status(HttpStatus.OK).body(tokenService.generateToken());
+    }
+
+    @GetMapping(path = "/token/list")
+    public ResponseEntity<List<Token>> listAllTokens(){
+        return ResponseEntity.status(HttpStatus.OK).body(tokenService.listAllTokens());
     }
 }
