@@ -1,4 +1,4 @@
-package core.ms.nodeid.token;
+package core.ms.userplan;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.SpringApplication;
@@ -7,10 +7,14 @@ import org.springframework.http.HttpStatus;
 
 @Slf4j
 @SpringBootApplication
-public class TokenApplication {
+public class UserPlanApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(TokenApplication.class, args);
-		log.info("Application UP ["+ HttpStatus.OK+"]");
+		SpringApplication.run(UserPlanApplication.class, args);
+		log.info("Application UP {}", HttpStatus.OK);
 	}
 }
+
+
+
+

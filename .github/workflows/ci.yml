@@ -96,12 +96,13 @@ jobs:
           cache: 'maven'
 
       - name: Deploy Application
-        run: |
-          mvn clean install -DskipTests=true
-          mvn package -DskipTests
+        run: mvn clean install
+
       - name: Login to Docker Hub
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+
       - name: Build Docker Image
-        run: docker build -t devmenorzera/token .
+        run: docker build -t devmenorzera/user-plan .
+
       - name: Publish Docker image
-        run: docker push devmenorzera/token
+        run: docker push devmenorzera/user-plan

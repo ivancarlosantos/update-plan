@@ -1,4 +1,4 @@
-FROM maven:3.8.5-openjdk-17 AS build
+FROM maven:3.9.9-eclipse-temurin-17-alpine AS build
 
 COPY /src /app/src
 
@@ -6,14 +6,22 @@ COPY /pom.xml /app
 
 RUN mvn -f /app/pom.xml clean package -Dmaven.test.skip
 
-FROM openjdk:17
+FROM alpine:3.21.3
 
-LABEL key="core.ms"
+RUN apk update
+
+RUN apk add openjdk17-jre
+
+RUN addgroup -S appgroup && adduser -S userplan -G appgroup
+
+USER userplanapp
+
+LABEL key="app.user-plan"
 
 WORKDIR /usr/src/app
 
-COPY --from=build /app/target/*.jar token.jar
+COPY --from=build /app/target/*.jar user-plan.jar
 
-EXPOSE 8086
+EXPOSE 8081
 
-ENTRYPOINT ["java", "-jar", "token.jar"]
+ENTRYPOINT ["java", "-jar", "user-plan.jar"]
