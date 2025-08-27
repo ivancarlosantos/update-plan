@@ -41,15 +41,15 @@ public class UserPlanListener {
     public void listenerUserStatus(Message<User> msn) {
 
             User u = User.builder()
-                    .id(msn.getPayload().getId())
-                    .name(msn.getPayload().getName())
-                    .email(msn.getPayload().getEmail())
-                    .password(msn.getPayload().getPassword())
-                    .plan(msn.getPayload().getPlan())
-                    .createdAt(msn.getPayload().getCreatedAt())
-                    .updatedAt(msn.getPayload().getUpdatedAt())
-                    .status(msn.getPayload().getStatus())
-                    .build();
+                         .id(msn.getPayload().getId())
+                         .name(msn.getPayload().getName())
+                         .email(msn.getPayload().getEmail())
+                         .password(msn.getPayload().getPassword())
+                         .plan(msn.getPayload().getPlan())
+                         .createdAt(msn.getPayload().getCreatedAt())
+                         .updatedAt(msn.getPayload().getUpdatedAt())
+                         .status(msn.getPayload().getStatus())
+                         .build();
 
             log.info("user-id: {}", u.getId());
             log.info("user name: {}", u.getName());

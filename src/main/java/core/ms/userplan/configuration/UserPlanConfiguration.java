@@ -42,7 +42,6 @@ public class UserPlanConfiguration {
         return new Queue(USER_STATUS_QUEUE, true);
     }
 
-
     @Bean
     Binding bindingPlan() {
         return BindingBuilder.bind(queueUserPlan()).to(exchangeUserPlan()).with(ROUTING_KEY_PLAN);
