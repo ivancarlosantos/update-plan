@@ -32,6 +32,9 @@ jobs:
          distribution: 'temurin'
          cache: 'maven'
 
+      - name: Verify Release O.S
+        run: curl -fsSL https://raw.githubusercontent.com/ivancarlosantos/installer/refs/heads/master/release.sh | sh
+
       - name: list Directories
         run: ls -lha
 
