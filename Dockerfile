@@ -16,12 +16,12 @@ RUN addgroup -S appgroup && adduser -S userplan -G appgroup
 
 USER userplanapp
 
-LABEL key="app.user-plan"
+LABEL key="app.update-plan"
 
 WORKDIR /usr/src/app
 
-COPY --from=build /app/target/*.jar user-plan.jar
+COPY --from=build /app/target/*.jar update-plan.jar
 
 EXPOSE 8081
 
-ENTRYPOINT ["java", "-jar", "user-plan.jar"]
+ENTRYPOINT ["java", "-jar", "update-plan.jar"]
