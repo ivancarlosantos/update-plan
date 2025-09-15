@@ -10,7 +10,7 @@
 	</parent>
 
 	<groupId>core.ms</groupId>
-	<artifactId>update-user-plan-service</artifactId>
+	<artifactId>update-plan-service</artifactId>
 	<version>v1</version>
 	<name>user-plan</name>
 
