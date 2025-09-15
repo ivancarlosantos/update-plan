@@ -3,7 +3,6 @@ package core.ms.userplan.dto.response;
 import core.ms.userplan.dto.enums.UserPlan;
 import lombok.*;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 @ToString
