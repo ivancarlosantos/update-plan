@@ -19,5 +19,9 @@ public class UserResponse {
 
     private UserPlan plan;
 
+    private LocalDateTime createdAt;
+
     private LocalDateTime updateAt;
+
+    private Boolean status;
 }
